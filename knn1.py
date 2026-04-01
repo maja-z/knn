@@ -8,14 +8,14 @@ def oblicz_odleglosc(punkt_a, punkt_b):
         suma += (punkt_a[i] - punkt_b[i])**2
     return math.sqrt(suma)
 
-def klasyfikacja_knn(nowy_obiekt, dane_treningowe, etykiety, k):
+def klasyfikacja_knn(nowy_obiekt, dane_treningowe, rozmiar, k):
 
     lista_odleglosci = []
 
     for i in range(len(dane_treningowe)):
         dystans = oblicz_odleglosc(nowy_obiekt, dane_treningowe[i])
        
-        lista_odleglosci.append((dystans, etykiety[i]))
+        lista_odleglosci.append((dystans, rozmiar[i]))
 
     lista_odleglosci.sort()
 
@@ -35,6 +35,8 @@ def klasyfikacja_knn(nowy_obiekt, dane_treningowe, etykiety, k):
 
 k = 3
 
+
+#####
 
 poprawne_trafienia = 0
 liczba_probek = len(X_test) 

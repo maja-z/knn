@@ -1,22 +1,22 @@
 import math
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split #dzielenie na test i trening
 
 
-def oblicz_odleglosc(punkt_a, punkt_b):
+def oblicz_odleglosc(punkt_a, punkt_b): #a - dana testowa b-dana treningowa
     suma = 0
     for i in range(len(punkt_a)):
         suma += (punkt_a[i] - punkt_b[i])**2
     return math.sqrt(suma)
 
 
-def klasyfikacja_knn(nowy_obiekt, dane_treningowe, etykiety, k):
+def klasyfikacja_knn(nowy_obiekt, dane_treningowe, gatunek, k):
 
     lista_odleglosci = []
 
     for i in range(len(dane_treningowe)):
         dystans = oblicz_odleglosc(nowy_obiekt, dane_treningowe[i])
-        lista_odleglosci.append((dystans, etykiety[i]))
+        lista_odleglosci.append((dystans, gatunek[i]))
 
     lista_odleglosci.sort()
 
@@ -24,20 +24,20 @@ def klasyfikacja_knn(nowy_obiekt, dane_treningowe, etykiety, k):
 
     glosy = {}
 
-    for dystans, rozmiar in najblizsi_sasiedzi:
-        if rozmiar in glosy:
-            glosy[rozmiar] += 1
+    for dystans, gatunek in najblizsi_sasiedzi:
+        if gatunek in glosy:
+            glosy[gatunek] += 1
         else:
-            glosy[rozmiar] = 1
+            glosy[gatunek] = 1
 
     wynik = max(glosy, key=glosy.get)
 
     return wynik
 
 
-iris = load_iris()
+iris = load_iris() 
 
-X = iris.data.tolist()
+X = iris.data.tolist() 
 y = [iris.target_names[i] for i in iris.target]
 
 
